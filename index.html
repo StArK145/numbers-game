@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Number</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+            background-color: gray;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form{
+            margin: 10px 0px;
+        }
+        #parent{
+            background-color: rgb(90, 89, 89);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 1px 1px 60px 0px black;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+
+        <h1>Guess Number</h1>
+        <p>Guess  number between 0-100</p>
+        <p id="leftguess">You have 10 gusses left</p>
+            <form action="submit">
+                <input id="input" type="number">
+                <input type="submit" id="SubmitButten" value="Submit">
+                <span id="result"></span>
+            </form>
+            <p>Your privious gusses are: </p><span id="guesses"></span>
+    </div>
+    <script>
+        const submit = document.getElementById('SubmitButten');
+        const remGuess = document.getElementById('leftguess');
+        const result = document.getElementById('result');
+        const input = document.getElementById('input').value
+        const number = parseInt(Math.random()*100 +1);
+        const pre = document.getElementById('guesses')
+        for (let index = 10; index > 0; index--) {
+            const array =[]
+            console.log(number);
+            
+            submit.addEventListener('click',function(e){
+                e.preventDefault()
+                if (input===' ') {
+                    result.innerHTML = 'Enter a number'
+                    index=index+1
+                    console.log('empty');
+                    
+                }
+                else if (number != input && index===1) {
+                    remGuess.innerHTML = `You have ${index_1} gusses left`
+                    result.innerHTML = 'Wrong Guess Game Over'
+                    array.push(input)
+                    pre.innerHTML = array
+                    console.log('end');
+                    console.log('end');
+                }
+                else if (number === input) {
+                    console.log('right');
+                    result.innerHTML = `Congratulations Win`
+                }
+                else {
+                    remGuess.innerHTML = `You have ${index-1} gusses left`
+                    result.innerHTML = 'Wrong Guess'
+                    array.push(input)
+                    pre.innerHTML = array
+                    console.log('Weong');
+                }
+            })
+            
+            
+        }
+    </script>
+</body>
+</html>
