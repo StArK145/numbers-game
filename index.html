@@ -1,90 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess Number</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            height: 100vh;
-            width: 100vw;
-            background-color: gray;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        form{
-            margin: 10px 0px;
-        }
-        #parent{
-            background-color: rgb(90, 89, 89);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 1px 1px 60px 0px black;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Guessing Game</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #a18cd1, #fbc2eb);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Heading Styles */
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #5a2d82;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    /* Input & Button Styles */
+    .game {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    #guessField {
+      flex: 1;
+      padding: 0.5rem;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    #subt {
+      background: #5a2d82;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #subt:hover {
+      background: #431d5c;
+    }
+
+    /* Info Section */
+    .info {
+      text-align: left;
+      margin: 1rem 0;
+    }
+
+    .status p {
+      font-size: 0.9rem;
+    }
+
+    .lowOrHi {
+      font-size: 1.1rem;
+      color: #d9534f;
+      margin-top: 1rem;
+    }
+
+    /* Result Section */
+    .resultParas {
+      margin-top: 1.5rem;
+    }
+
+    .resultParas .button {
+      background: #5a2d82;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .resultParas .button:hover {
+      background: #431d5c;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p, #guessField, #subt {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="parent">
-
-        <h1>Guess Number</h1>
-        <p>Guess  number between 0-100</p>
-        <p id="leftguess">You have 10 gusses left</p>
-            <form action="submit">
-                <input id="input" type="number">
-                <input type="submit" id="SubmitButten" value="Submit">
-                <span id="result"></span>
-            </form>
-            <p>Your privious gusses are: </p><span id="guesses"></span>
+  <div class="container">
+    <h1>🎯 Number Guessing Game</h1>
+    <p>Guess a number between <strong>1</strong> and <strong>100</strong>!</p>
+    <div class="game">
+      <input id="guessField" type="number" placeholder="Enter your guess" min="1" max="100">
+      <button id="subt">Submit Guess</button>
     </div>
-    <script>
-        const submit = document.getElementById('SubmitButten');
-        const remGuess = document.getElementById('leftguess');
-        const result = document.getElementById('result');
-        const input = document.getElementById('input').value
-        const number = parseInt(Math.random()*100 +1);
-        const pre = document.getElementById('guesses')
-        for (let index = 10; index > 0; index--) {
-            const array =[]
-            console.log(number);
-            
-            submit.addEventListener('click',function(e){
-                e.preventDefault()
-                if (input===' ') {
-                    result.innerHTML = 'Enter a number'
-                    index=index+1
-                    console.log('empty');
-                    
-                }
-                else if (number != input && index===1) {
-                    remGuess.innerHTML = `You have ${index_1} gusses left`
-                    result.innerHTML = 'Wrong Guess Game Over'
-                    array.push(input)
-                    pre.innerHTML = array
-                    console.log('end');
-                    console.log('end');
-                }
-                else if (number === input) {
-                    console.log('right');
-                    result.innerHTML = `Congratulations Win`
-                }
-                else {
-                    remGuess.innerHTML = `You have ${index-1} gusses left`
-                    result.innerHTML = 'Wrong Guess'
-                    array.push(input)
-                    pre.innerHTML = array
-                    console.log('Weong');
-                }
-            })
-            
-            
-        }
-    </script>
+    <div class="info">
+      <div class="status">
+        <p><strong>Previous Guesses:</strong> <span class="guesses"></span></p>
+        <p><strong>Remaining Guesses:</strong> <span class="lastResult">10</span></p>
+        <p class="lowOrHi"></p>
+      </div>
+    </div>
+    <div class="resultParas"></div>
+  </div>
+  <script>
+    let randomNo = Math.floor(Math.random() * 100) + 1;
+
+    const submit = document.querySelector("#subt");
+    const userInput = document.querySelector("#guessField");
+    const guessSlot = document.querySelector(".guesses");
+    const remaining = document.querySelector(".lastResult");
+    const lowOrHi = document.querySelector(".lowOrHi");
+    const startOver = document.querySelector(".resultParas");
+    console.log(randomNo);
+    
+
+    let prevGuesses = [];
+    let attempts = 1;
+    let playGame = true;
+
+    submit.addEventListener("click", function (e) {
+      e.preventDefault();
+      
+      if (!playGame) return;
+
+      const guess = parseInt(userInput.value);
+      prevGuesses.push(guess);
+
+      guessSlot.textContent = prevGuesses.join(", ");
+      remaining.textContent = `${10 - attempts}`;
+
+      if (guess === randomNo) {
+        lowOrHi.innerHTML = `<h2>🎉 Congratulations! You guessed it right!</h2>`;
+        endGame();
+      } else if (attempts === 10) {
+        lowOrHi.innerHTML = `<h2>😔 Game Over! The correct number was ${randomNo}.</h2>`;
+        endGame();
+      } else {
+        lowOrHi.textContent =
+          guess < randomNo ? "Number is too Low 📉" : "Number is too High 📈";
+        attempts++;
+        userInput.value = "";
+      }
+    });
+
+    function endGame() {
+      playGame = false;
+      userInput.setAttribute("disabled", true);
+
+      const restartButton = document.createElement("button");
+      restartButton.textContent = "Start New Game";
+      restartButton.classList.add("button");
+      startOver.appendChild(restartButton);
+
+      restartButton.addEventListener("click", function () {
+        randomNo = Math.floor(Math.random() * 100) + 1;
+        prevGuesses = [];
+        attempts = 1;
+        playGame = true;
+
+        userInput.removeAttribute("disabled");
+        userInput.value = "";
+        guessSlot.textContent = "";
+        remaining.textContent = "10";
+        lowOrHi.textContent = "";
+        startOver.removeChild(restartButton);
+      });
+    }
+  </script>
 </body>
 </html>
